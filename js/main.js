@@ -29,12 +29,12 @@ function createSelectOptions (userJSON){
         userJSON.forEach(user => {
         let newoption = document.createElement("option");
         newoption.value = user.id;
-        newoption.textContent = user.username;
+        newoption.textContent = user.username; //-----not working??
         selectbox.push(newoption);
         });
     return selectbox;
 };
-//3
+//3 ---- passed
 function toggleCommentSection (postID){
     if(postID != undefined){
     let post = document.querySelector(`[data-post-id='${postID}']`);
