@@ -24,22 +24,20 @@ function createElemWithText (param1, param2, param3) {
 //passed---------------
 //2
 function createSelectOptions (userJSON){
-    // let selectbox = document.getElementById("selectMenu");
-    if (userJSON === undefined){
-        options = undefined
-    }else{
-        array.forEach(userJSON => {
-            let newoption = new Option(userJSON.username, userJSON.id)
-            selectbox.add(newoption);
+    if (!userJSON) return;
+    const selectbox = []
+        userJSON.forEach(user => {
+        let newoption = document.createElement("option");
+        newoption.value = user.id;
+        newoption.textContent = user.username;
+        selectbox.push(newoption);
         });
-    }
-    console.log(options);
-    return options;
+    return selectbox;
 };
 //3
 function toggleCommentSection (postID){
     if(postID != undefined){
-    const post = document.getElementById(postID);
+    let post = document.querySelector(`[data-post-id='${postID}']`);
     if(post != undefined){
         post.classList.toggle("hide");
     }
