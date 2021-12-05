@@ -22,14 +22,14 @@ function createElemWithText (param1, param2, param3) {
 
 };
 //passed---------------
-//2
+//2 --- passed
 function createSelectOptions (userJSON){
     if (!userJSON) return;
     const selectbox = []
         userJSON.forEach(user => {
         let newoption = document.createElement("option");
         newoption.value = user.id;
-        newoption.textContent = user.username; //-----not working??
+        newoption.text = user.name; 
         selectbox.push(newoption);
         });
     return selectbox;
@@ -46,18 +46,29 @@ function toggleCommentSection (postID){
 };
 //4
 function toggleCommentButton (postID){
- if(postID != undefined){   
-    const combutton = document.querySelector("[post-data-id=\"" + postID + "\"]");
+ if(!postID ) return;   
+    const combutton = document.querySelector(`[data-post-id='${postID}']`);
      if (combutton != undefined){
-            if(combutton.innerHTML === "Show Comments"){
-                combutton.innerHTML = "Hide Comments"
-            }else if(combutton.innerHTML === "Hide Comments"){
-                combutton.innerHTML = "Show Comments"
+         let comText = combutton.textContent;
+            if(comText === "Show Comments"){
+                comText = "Hide Comments"
+                combutton.textContent = comText;
+                console.log(combutton);
+            }else{
+                if(comText === "Hide Comments"){
+                    comText = "Show Comments";
+                    combutton.textContent = comText;
+                    console.log(combutton);
             }
+            console.log(combutton);
+
+        }
+        console.log(combutton);
+
+        return combutton;
+    } else {
+        return combutton;
     }
-    console.log(combutton);
-    return combutton;  
- }
 };
 //5
 function deleteChildElements (parentElement){
