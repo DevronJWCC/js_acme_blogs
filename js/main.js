@@ -48,28 +48,25 @@ function toggleCommentSection (postID){
 function toggleCommentButton (postID){
  if(!postID ) return;   
     const combutton = document.querySelector(`[data-post-id='${postID}']`);
-     if (combutton != undefined){
+     if (combutton === undefined){
+         return undefined;
+     }else{
          let comText = combutton.textContent;
             if(comText === "Show Comments"){
                 comText = "Hide Comments"
                 combutton.textContent = comText;
                 console.log(combutton);
+                return combutton;
             }else{
                 if(comText === "Hide Comments"){
                     comText = "Show Comments";
                     combutton.textContent = comText;
                     console.log(combutton);
+                    return combutton;
+                }
             }
-            console.log(combutton);
-
         }
-        console.log(combutton);
-
-        return combutton;
-    } else {
-        return combutton;
-    }
-};
+    };
 //5
 function deleteChildElements (parentElement){
     const htmlregex = new RegExp("/<\/?[a-z][\s\S]*>/")
