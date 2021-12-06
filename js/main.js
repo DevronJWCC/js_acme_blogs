@@ -47,7 +47,7 @@ function toggleCommentSection (postID){
 //4
 function toggleCommentButton (postID){
  if(!postID ) return;   
-    const combutton = document.querySelector(`button [data-post-id='${postID}']`);
+    const combutton = document.querySelector(`button[data-post-id='${postID}']`);
      if (combutton === null){
          return null;
      }else{
