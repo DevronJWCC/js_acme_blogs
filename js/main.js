@@ -48,8 +48,8 @@ function toggleCommentSection (postID){
 function toggleCommentButton (postID){
  if(!postID ) return;   
     const combutton = document.querySelector(`[data-post-id='${postID}']`);
-     if (combutton === undefined){
-         return undefined;
+     if (combutton === null){
+         return null;
      }else{
          let comText = combutton.textContent;
             if(comText === "Show Comments"){
