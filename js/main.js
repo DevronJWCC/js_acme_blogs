@@ -63,6 +63,7 @@ function toggleCommentButton (postID){
 //5
 function deleteChildElements (parentElement){
     const pe = parentElement;
+    console.log(pe);
     const htmlregex = new RegExp("/<\/?[a-z][\s\S]*>/")
     if(htmlregex.test(pe) === false){
         return undefined;
@@ -72,9 +73,9 @@ function deleteChildElements (parentElement){
             pe.removeChild(child);
             //child = pe.lastElementChild;
         }
+
         return pe;
     }
-
 };
 //6
 function addButtonListeners (){
