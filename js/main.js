@@ -70,7 +70,7 @@ function deleteChildElements (parentElement){
         let child = pe.lastElementChild;
         while(child){
             pe.removeChild(child);
-            child = pe.lastElementChild;
+            //child = pe.lastElementChild;
         }
         return pe;
     }
