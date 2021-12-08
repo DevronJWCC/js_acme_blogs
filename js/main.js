@@ -66,14 +66,16 @@ function deleteChildElements (parentElement){
     const htmlregex = new RegExp("/<\/?[a-z][\s\S]*>/")
     if(htmlregex.test(pe) === false){
         return undefined;
-    }
+    }else{
         let child = pe.lastElementChild;
         console.log(pe);
         while(child){
             pe.removeChild(child);
             //child = pe.lastElementChild;
         }
+
         return pe;
+    }
 };
 //6
 function addButtonListeners (){
