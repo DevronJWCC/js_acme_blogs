@@ -73,7 +73,7 @@ function deleteChildElements (parentElement){
             pe.removeChild(child);
             //child = pe.lastElementChild;
         }
-
+        console.log(pe);
         return pe;
     }
 };
