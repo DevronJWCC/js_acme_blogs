@@ -44,27 +44,20 @@ function toggleCommentSection (postID){
     return post;
 }
 };
-//4
+//4 ---- passed
 function toggleCommentButton (postID){
  if(!postID ) return;   
-    const combutton = document.querySelector(`button[data-post-id='${postID}']`);
+    let combutton = document.querySelector(`button[data-post-id='${postID}']`);
      if (combutton === null){
          return null;
      }else{
-         let comText = combutton.textContent;
+         let comText = combutton.innerText;
             if(comText === "Show Comments"){
-                comText = "Hide Comments"
-                combutton.textContent = comText;
-                console.log(combutton);
-                return combutton;
+                combutton.textContent = "Hide Comments"
             }else{
-                if(comText === "Hide Comments"){
-                    comText = "Show Comments";
-                    combutton.textContent = comText;
-                    console.log(combutton);
-                    return combutton;
-                }
+                    combutton.textContent = "Show Comments";
             }
+            return combutton;
         }
     };
 //5
