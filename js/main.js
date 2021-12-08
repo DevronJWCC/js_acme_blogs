@@ -68,7 +68,7 @@ function deleteChildElements (parentElement){
         return undefined;
     }else{
         let child = pe.lastElementChild;
-        console.log(child);
+        console.log(pe);
         while(child){
             pe.removeChild(child);
             //child = pe.lastElementChild;
