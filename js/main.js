@@ -62,15 +62,19 @@ function toggleCommentButton (postID){
     };
 //5
 function deleteChildElements (parentElement){
+    const pe = parentElement;
     const htmlregex = new RegExp("/<\/?[a-z][\s\S]*>/")
-    if(htmlregex.test(parentElement) === true){
-    let lastchild = parentElement.firstChild;
-    // while(lastchild){
-    //     parentElement.removeChild(lastchild);
-    // }
-    parentElement.innerHTML = '';
-    return parentElement;
-}
+    if(htmlregex.test(pe) === false){
+        return undefined;
+    }else{
+        let child = pe.lastElementChild;
+        while(child){
+            pe.removeChild(child);
+            child = pe.lastElementChild;
+        }
+        return pe;
+    }
+
 };
 //6
 function addButtonListeners (){
