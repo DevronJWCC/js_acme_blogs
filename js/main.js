@@ -38,7 +38,7 @@ function createSelectOptions (userJSON){
 function toggleCommentSection (postID){
     if(!postID) return;
     let post = document.querySelector(`section[data-post-id='${postID}']`);
-    if(post != undefined){
+    if(post !== null){
         post.classList.toggle("hide");
     }
     return post;
@@ -53,9 +53,9 @@ function toggleCommentButton (postID){
      }else{
          let comText = combutton.innerText;
             if(comText === "Show Comments"){
-                combutton.textContent = "Hide Comments"
+                combutton.textContent = "Hide Comments";
             }else{
-                    combutton.textContent = "Show Comments";
+                combutton.textContent = "Show Comments";
             }
             return combutton;
         }
@@ -202,10 +202,10 @@ async function toggleComments (e, postID){
         const button = toggleCommentButton(postID);
         resultarray.push(section);
         resultarray.push(button);
+        return resultarray;   
     }
-    return resultarray;
 };
-//18
+//18---------passed
 async function refreshPosts (postsJSON) {
     if(!postsJSON) return;
     const retarray = [];
@@ -217,11 +217,15 @@ async function refreshPosts (postsJSON) {
     return retarray;
 };
 //19
-async function selectMenuChangeEventHandler (event) {
-    const userId = event.target.value || 1;
+async function selectMenuChangeEventHandler () {
+    let retarray = [];
+    const userId = Event.target.value || 1;
+    console.log(userId);
     const posts = await getUserPosts(userId);
+    console.log(posts);
     const refresh = await refreshPosts(posts);
-    const retarray = [userId, posts, refresh];
+    retarray.push(userId, posts, refresh);
+    console.log(retarray);
     return retarray;
 };
 //20
