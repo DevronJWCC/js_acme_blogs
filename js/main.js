@@ -64,7 +64,10 @@ function toggleCommentButton (postID){
 function deleteChildElements (parentElement){
     if (!parentElement?.tagName) return;
         let child = parentElement.lastElementChild;
-        parentElement.innerHTML = "";
+        while(child){
+            parentElement.removeChild(child);
+            child = parentElement.lastElementChild;
+        }
         return parentElement;
 };
 //6 ------passed
@@ -156,7 +159,8 @@ async function displayComments (postID){
 async function createPosts (postsJSON) {
     if(!postsJSON) return;
     const frag = document.createDocumentFragment();
-    for(post of postsJSON) {
+    for(let i = 0; i < postsJSON.length; i++) {
+        let post = postsJSON[i];
         const article = document.createElement("article");
         const heading = createElemWithText('h2', post.title);
         const para = createElemWithText('p', post.body);
@@ -169,24 +173,30 @@ async function createPosts (postsJSON) {
         article.append(heading, para, para2,author,para3,para4,btn);
         const section = await displayComments(post.id);
         article.append(section);
-        frag.append(article);
+        frag.appendChild(article);
     };
     return frag;
 };
-//16---------assertion error?
+//16---------passed
 async function displayPosts (posts) {
     const main = document.querySelector("main");
-    const def = main.querySelector(".default-text").innerHTML;
-    let element = await createPosts(posts) || createElemWithText("p", def);
+    let element = "";
+    if (posts !== undefined){
+        element = await createPosts(posts);
+    }else{
+        element = createElemWithText("p", "Select an Employee to display their posts.");
+        element.classList.add("default-text");
+    }
     main.append(element);
     return element;
 };
 //17---------assertion error
 async function toggleComments (e, postID){
     let resultarray = [];
-    if(e === undefined || postID === undefined ) {
+    if(typeof e === 'undefined' || postID === undefined || e === null) {
         return undefined;
     }else{
+    
         e.target.listener = true;
         const section = toggleCommentSection(postID);
         const button = toggleCommentButton(postID);
@@ -198,11 +208,12 @@ async function toggleComments (e, postID){
 //18
 async function refreshPosts (postsJSON) {
     if(!postsJSON) return;
-    const remove = removeButtonListeners();
-    const del = deleteChildElements();
-    const display = await displayPosts(postsJSON);
-    const btns = addButtonListeners();
-    const retarray = [remove, del, display, btns];
+    const retarray = [];
+    const removeButtons = removeButtonListeners();
+    const main = await deleteChildElements(document.querySelector("main"));
+    const fragment = await displayPosts(postsJSON);
+    const addButtons = addButtonListeners();
+    retarray.push(removeButtons, main, fragment, addButtons);
     return retarray;
 };
 //19
