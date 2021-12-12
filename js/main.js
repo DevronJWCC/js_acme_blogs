@@ -62,7 +62,7 @@ function toggleCommentButton (postID){
     };
 //5 ----- passed
 function deleteChildElements (parentElement){
-    if (!parentElement?.tagName) return;
+    if (!parentElement || !parentElement.tagName) return;
         let child = parentElement.lastElementChild;
         while(child){
             parentElement.removeChild(child);
@@ -76,7 +76,7 @@ function addButtonListeners (){
     if(allbuttons != undefined){
          allbuttons.forEach(btn => {
             const postID = btn.dataset.postId;
-            btn.addEventListener("click", function (e) {toggleComments(e, postID)}, false);
+                btn.addEventListener("click", function (e) {toggleComments(e, postID)}, false);
         })
         return allbuttons;
     }else{
@@ -191,19 +191,18 @@ async function displayPosts (posts) {
     return element;
 };
 //17---------assertion error
-async function toggleComments (e, postID){
-    let resultarray = [];
-    if(typeof e === 'undefined' || postID === undefined || e === null) {
-        return undefined;
-    }else{
+function toggleComments (e, postID){
     
-        e.target.listener = true;
-        const section = toggleCommentSection(postID);
-        const button = toggleCommentButton(postID);
-        resultarray.push(section);
-        resultarray.push(button);
-        return resultarray;   
-    }
+    if (!e || !postID) { 
+        return
+    };
+
+    e.target.listener = true;
+    const section = toggleCommentSection(postID);
+    const button = toggleCommentButton(postID);
+    let resultarray = [];
+    resultarray.push(section, button);
+    return resultarray;
 };
 //18---------passed
 async function refreshPosts (postsJSON) {
@@ -217,29 +216,28 @@ async function refreshPosts (postsJSON) {
     return retarray;
 };
 //19
-async function selectMenuChangeEventHandler () {
+async function selectMenuChangeEventHandler (e) {
     let retarray = [];
-    const userId = Event.target.value || 1;
-    console.log(userId);
+    const userId = (e && e.target.value) || 1;
     const posts = await getUserPosts(userId);
-    console.log(posts);
     const refresh = await refreshPosts(posts);
     retarray.push(userId, posts, refresh);
-    console.log(retarray);
     return retarray;
 };
 //20
 async function initPage (){
+    let rearray = [];
     const users = await getUsers();
-    const drop = populateSelectMenu(drop);
-    const rearray = [users, drop];
-    console.log(rearray);
+    const drop = populateSelectMenu(users);
+    rearray.push = [users, drop];
     return rearray;
 }
 //21
-async function initApp () {
+function initApp (e) {
     initPage();
     const select = document.querySelector("#selectMenu");
-    select.addEventListener("change", selectMenuChangeEventHandler(e));
+    console.log(select);
+    select.addEventListener("change", selectMenuChangeEventHandler, false);
 
 }
+document.addEventListener("DOMContentLoaded", initApp, false);
